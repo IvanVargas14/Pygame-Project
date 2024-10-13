@@ -1,81 +1,44 @@
-from itertools import filterfalse
-from posix import PRIO_PGRP
-
-import pygame
-import random
-import sys
+import pygame, sys, random
 from pygame.locals import *
 
 pygame.init()
+screen = pygame.display.set_mode((800, 600))
 
-screen_width, screen_height = 800, 600
-screen = pygame.display.set_mode((screen_width, screen_height))
+basket = pygame.Surface((100,20))
+basket.fill((255,255,255))
 
-white = (255, 255, 255)
-red = (255, 0, 0)
-black = (0, 0, 0)
+fruit = pygame.Surface((20,20))
+fruit.fill((255,0,0))
 
-basket_width, basket_height = 100, 20
-basket_x = screen_width // 2 - basket_width // 2
-basket_y = screen_height - basket_height - 20
-basket_speed = 10
-
-basket_rect = pygame.Rect(basket_x, basket_y, basket_width, basket_height )
-basket_surface = pygame.Surface((100,20))
-basket_surface.fill(white)
-
-fruit_width, fruit_height = 20, 20
-fruit_speed = 3
-fruit_x= random.randint(0,screen_width - fruit_width)
-fruit_y = 0
-
-fruit_rect = pygame.Rect(fruit_x, fruit_y, fruit_width, fruit_height)
-fruit_surface = pygame.Surface((20,20))
-fruit_surface.fill(red)
-
-score = 0
-
+basket_rect = pygame.Rect(350,580,100,20)
+fruit_rect = pygame.Rect(200,200,20,20)
+fruit_rect.x = random.randint(0, 800 - 20)
+speed = 3
+speedB = 10
+point = 0
 clock = pygame.time.Clock()
-
-def check_quit():
-    if event.type == QUIT:
-        sys.exit()
-    if keys[pygame.K_ESCAPE]:
-        sys.exit()
-
-running = True
-while running:
-
+while True:
     keys = pygame.key.get_pressed()
     for event in pygame.event.get():
-        check_quit()
-# left and right keys = movement
-    if keys[pygame.K_LEFT] and basket_rect.x >=0:
-        basket_rect.x -= basket_speed
-    if keys[pygame.K_RIGHT] and basket_rect.x <=700:
-        basket_rect.x += basket_speed
+        if event.type == QUIT:
+            print("Score:", point)
+            sys.exit(0)
 
-    if fruit_rect.y >= 0:
-        fruit_rect.y += fruit_speed
-    if fruit_rect.y > screen_height - fruit_height:
-        fruit_rect.x = random.randint(0, screen_width - fruit_width)
-        fruit_rect.y = 0
+    if keys[pygame.K_LEFT] and basket_rect.left > 0:
+        basket_rect.x -= speedB
+    if keys[pygame.K_RIGHT] and basket_rect.right < 800:
+        basket_rect.x += speedB
+    fruit_rect.y += 3
+    if basket_rect.colliderect(fruit_rect):
+        point += 1
+        fruit_rect.x = random.randint(0, 800 - 20)
+        fruit_rect.y = 10
+    if fruit_rect.y >= 600:
+        print("Score:", point)
+        sys.exit(0)
 
-    if fruit_rect.colliderect(basket_rect):
-        fruit_rect.y = 0
-        fruit_rect.x = random.randint(0,screen_width - fruit_width)
-        score+=1
-        print("score: ",score)
-
-
-# fruit is caught
-
-    screen.fill((0, 0, 0))
-    screen.blit(basket_surface,basket_rect )
-    screen.blit(fruit_surface, fruit_rect)
-
+    screen.fill((0,0,0))
+    screen.blit(basket, basket_rect)
+    screen.blit(fruit, fruit_rect)
     pygame.display.flip()
     clock.tick(60)
-
-#yooooooo
-# bing bong
