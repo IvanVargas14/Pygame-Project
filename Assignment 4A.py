@@ -36,7 +36,24 @@ while True:
     if fruit_rect.y >= 600:
         print("Score:", point)
         sys.exit(0)
-
+    if point == 5:
+        print("Congratulations! On to level 2.")
+    if point == 10:
+        print("Congratulations! On to level 3.")
+    if point == 20:
+        print("Congratulations! On to level 4.")
+    if point == 35:
+        print("Congratulations! On to level 5.")
+    if point == 50:
+        print("Congratulations! On to level 6.")
+    if point == 60:
+        print("Congratulations! On to level 7.")
+    if point == 75:
+        print("Congratulations! On to level 8.")
+    if point == 90:
+        print("Congratulations! On to level 9.")
+    if point == 100:
+        print("Congratulations! On to level 10.")
     screen.fill((0,0,0))
     screen.blit(basket, basket_rect)
     screen.blit(fruit, fruit_rect)
