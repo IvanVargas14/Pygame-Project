@@ -19,10 +19,11 @@ ball_rect = pygame.Rect(200, 200, 20, 20)
 speed = 3
 speedB = 10
 point = 0
+level = 1 #initialize level
 clock = pygame.time.Clock()
 goingRight = True
 goingDown = True
-
+font = pygame.font.SysFont(None, 36) #Use default system font, size 36
 # while running statement, begins with quit
 while True:
     keys = pygame.key.get_pressed()
@@ -72,28 +73,33 @@ while True:
     if ball_rect.y == 580:
         print("Score:", point)
         sys.exit(0)
-    if point == 5:
-        print("Congratulations! On to level 2.")
-        break
-    if point == 10:
-        print("Congratulations! On to level 3.")
-    if point == 20:
-        print("Congratulations! On to level 4.")
-    if point == 35:
-        print("Congratulations! On to level 5.")
-    if point == 50:
-        print("Congratulations! On to level 6.")
-    if point == 60:
-        print("Congratulations! On to level 7.")
-    if point == 75:
-        print("Congratulations! On to level 8.")
-    if point == 90:
-        print("Congratulations! On to level 9.")
-    if point == 100:
-        print("Congratulations! On to level 10.")
+    elif point == 5:
+        level = 2
+    elif point == 10:
+        level = 3
+    elif point == 20:
+        level = 4
+    elif point == 35:
+        level = 5
+    elif point == 50:
+        level = 6
+    elif point == 60:
+        level = 7
+    elif point == 75:
+        level = 8
+    elif point == 90:
+        level = 9
+    elif point == 100:
+        level = 10
+    # Render the score and level as text
+    score_text = font.render(f'Score: {point}', True, (255,255,255))
+    level_text = font.render(f'Level: {level}', True, (255,255,255))
+
 
     screen.fill((0, 0, 0))
     screen.blit(paddle, paddle_rect)
     screen.blit(ball, ball_rect)
+    screen.blit(score_text, (10,10))#Display at top left corner
+    screen.blit(level_text, (10,50))#Display level below the score
     pygame.display.flip()
     clock.tick(60)
