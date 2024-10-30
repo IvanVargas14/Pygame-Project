@@ -1,3 +1,10 @@
+#Class: CSE 1321
+#Section: BD
+#Term: Fall 2024
+#Instructor: Mamo
+#Name: Jakob Shelton, Ivan, Ramone, Kellen
+#Pygame Project
+
 import pygame, sys, random
 from pygame.locals import *
 
@@ -69,28 +76,33 @@ while True:
         goingRight = True
 
 # transition between levels
-# without the break, line 76 would print endlessly, perhaps create a method?
+
     if ball_rect.y == 580:
         print("Score:", point)
         sys.exit(0)
     elif point == 5:
         level = 2
+        speed = 5
     elif point == 10:
         level = 3
     elif point == 20:
         level = 4
+        speed = 7
     elif point == 35:
         level = 5
     elif point == 50:
         level = 6
+        speed = 9
     elif point == 60:
         level = 7
     elif point == 75:
         level = 8
+        speed = 11
     elif point == 90:
         level = 9
     elif point == 100:
         level = 10
+        speed = 13
     # Render the score and level as text
     score_text = font.render(f'Score: {point}', True, (255,255,255))
     level_text = font.render(f'Level: {level}', True, (255,255,255))
