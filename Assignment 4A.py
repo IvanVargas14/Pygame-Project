@@ -10,6 +10,7 @@ from pygame.locals import *
 
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
+resolution = (800,600)
 #
 # def spawn_ball():
 #     size = 20
@@ -56,12 +57,16 @@ ball2_rect = pygame.Rect(400, 0, 20, 20)
 
 
 # variables
-speed = 3
+speed = 4
 speedB = 10
 point = 0
 level = 1 #initialize level
 
-
+#blacl/white
+increasing = True
+color = 0
+idk = (0,0)
+color_surface = pygame.Surface(idk)
 # time variables
 survival_time = 0
 currentime = pygame.time.get_ticks()
@@ -124,6 +129,8 @@ while True:
     if ball_rect.x < 0:
         goingRight = True
 
+
+
 # transition between levels
     # maybe have a for statement, saying for every i of level, clear list?
 
@@ -137,7 +144,7 @@ while True:
             ball2 = pygame.Surface((20, 20))
             ball2.fill((255,0,0))  # most important line to have this visible?
             pygame.display.flip()
-            clock.tick(60)
+            #clock.tick(60)
             if goingDown2:
                 ball2_rect = ball2_rect.move(0, speed)
             else:
@@ -166,6 +173,8 @@ while True:
                 goingRight2 = False
             if ball2_rect.x < 0:
                 goingRight2 = True
+
+
 
     elif 4 <= point <=6:
         level = 3
@@ -201,11 +210,14 @@ while True:
             goingRight2 = True
 
         #list_of_balls.clear()
+
+
+
+
     elif 7 <= point <=9:
         level = 4
         speed = 6.1
 
-        # include flashing black and white screen
 
         if goingDown2:
             ball2_rect = ball2_rect.move(0, speed)
@@ -236,20 +248,72 @@ while True:
         if ball2_rect.x < 0:
             goingRight2 = True
 
-    elif 10 <= point <11:
-        level = 5
-    elif 12 <= point <13:
-        level = 6
-        speed = 8
-    elif 14 <= point <15:
-        level = 7
-        speed = 9
+
+        if increasing:
+            color += 1
+        else:
+            color -= 1
+        if color >= 255:
+                increasing = False
+        if color <= 0:
+                increasing = True
+
+
+        elif 10 <= point <=11:
+            level = 5
+            #increasing = False
+
+            if increasing:
+                color += 1
+            else:
+                color -= 1
+            if color >= 255:
+                increasing = False
+            if color <= 0:
+                increasing = True
+
+            if goingDown2:
+                ball2_rect = ball2_rect.move(0, speed)
+            else:
+                ball2_rect = ball2_rect.move(0, -speed)
+
+            if ball2_rect.y < 0:
+                goingDown2 = True
+                # adds point and reflects ball upon collision
+            if paddle_rect.colliderect(ball2_rect):
+                point += 1
+                goingDown2 = False
+
+                # sends ball up if rect touches very bottom of screen
+            if ball2_rect.y > 580:
+                ball2_rect.x = random.randint(0, 800 - 20)
+                ball2_rect.y = 10
+                point -= 1
+
+                # movement of ball right and left across X-axis
+            if goingRight2:
+                ball2_rect = ball2_rect.move(speed, 0)
+            else:
+                ball2_rect = ball2_rect.move(-speed, 0)
+                # borders of right and left screen
+            if ball2_rect.x > 780:
+                goingRight2 = False
+            if ball2_rect.x < 0:
+                goingRight2 = True
+
+
+        elif 12 <= point <13:
+            level = 6
+            speed = 8
+        elif 14 <= point <15:
+            level = 7
+            speed = 9
     # Render the score and level as text
     score_text = font.render(f'Score: {point}', True, (255,255,255))
     level_text = font.render(f'Level: {level}', True, (255,255,255))
 
 
-    screen.fill((0, 0, 0))
+    screen.fill((color, color, color))
     screen.blit(paddle, paddle_rect)
     screen.blit(ball, ball_rect)
     screen.blit(ball2, ball2_rect)
@@ -259,3 +323,7 @@ while True:
     screen.blit(level_text, (10,50))#Display level below the score
     pygame.display.flip()
     clock.tick(60)
+
+    #make the paddle smaller as levels progress
+    # intergrate sounds
+    # load images onto rects
