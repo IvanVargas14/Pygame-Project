@@ -12,6 +12,23 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 resolution = (800,600)
 
+grass = pygame.image.load("Grassland.jpg").convert()
+grass = pygame.transform.scale(grass, (800,600))
+#anotherb background image
+desert = pygame.image.load("desert.jpg").convert()
+desert = pygame.transform.scale(desert, (800,600))
+
+jungle = pygame.image.load("jungle.jpg").convert()
+jungle = pygame.transform.scale(jungle, (800, 600))
+
+tundra = pygame.image.load("Tundra.jpg").convert()
+tundra = pygame.transform.scale(tundra, (800, 600))
+
+fire = pygame.image.load("fire.jpg").convert()
+fire = pygame.transform.scale(fire, (800, 600))
+back = grass
+
+
 
 def generate_random_color():
     r = random.randint(0,255)
@@ -137,7 +154,7 @@ while True:
         sys.exit(0)
 
     elif 2 <= point <=3:
-
+            back = desert
             level = 2
             speed = 5
 
@@ -222,6 +239,7 @@ while True:
 
 
     elif 7 <= point <=9:
+            back = jungle
             level = 4
             speed = 6
 
@@ -273,6 +291,7 @@ while True:
                 sys.exit(0)
 
     elif 10 <= point <=12:
+            back = tundra
             level = 5
             speed = 6
             speed2 = 4
@@ -366,6 +385,7 @@ while True:
                 sys.exit(0)
 
     elif 13 <= point <=14:
+            back = fire
             level = 6
             speed = 8
 #so rn, speed2 is assigned to ball three
@@ -556,8 +576,9 @@ while True:
     score_text = font.render(f'Score: {point}', True, (255,255,255))
     level_text = font.render(f'Level: {level}', True, (255,255,255))
 
+    screen.blit(back,(0, 0))
 
-    screen.fill((color, color, color))
+    #screen.fill((color, color, color))
     screen.blit(paddle, paddle_rect)
     screen.blit(ball, ball_rect)
     screen.blit(ball2, ball2_rect)
