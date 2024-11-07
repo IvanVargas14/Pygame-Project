@@ -26,7 +26,7 @@ tundra = pygame.transform.scale(tundra, (800, 600))
 
 fire = pygame.image.load("fire.jpg").convert()
 fire = pygame.transform.scale(fire, (800, 600))
-back = grass
+back = desert
 
 
 
@@ -69,9 +69,13 @@ level = 1 #initialize level
 
 #blacl/white
 increasing = True
+
+
+
 color = 0
 idk = (0,0)
 color_surface = pygame.Surface(idk)
+
 # time variables
 survival_time = 0
 currentime = pygame.time.get_ticks()
@@ -121,10 +125,10 @@ while True:
         goingDown = False
 
 # sends ball up if rect touches very bottom of screen
-    if ball_rect.y > 580:
-        ball_rect.x = random.randint(0, 800 - 20)
-        ball_rect.y = 10
-        point -= 1
+#     if ball_rect.y > 580:
+#         ball_rect.x = random.randint(0, 800 - 20)
+#         ball_rect.y = 10
+#         point -= 1
 
 #movement of ball right and left across X-axis
     if goingRight:
@@ -142,19 +146,19 @@ while True:
 # transition between levels
     # maybe have a for statement, saying for every i of level, clear list?
 
-    if ball_rect.y == 580:
-        print("Score:", point)
-        sys.exit(0)
+    if ball_rect.y > 580:
+         print("Score:", point, " Try again?")
+         sys.exit(0)
 
-    if ball2_rect.y == 580:
-        print("Score:", point)
+    if ball2_rect.y > 580:
+        print("Score:", point, " Try again?")
         sys.exit(0)
-    if ball3_rect.y == 580:
-        print("Score:", point)
+    if ball3_rect.y > 580:
+        print("Score:", point, " Try again?")
         sys.exit(0)
 
     elif 2 <= point <=3:
-            back = desert
+            back = grass
             level = 2
             speed = 5
 
@@ -175,10 +179,10 @@ while True:
                 goingDown2 = False
 
             # sends ball up if rect touches very bottom of screen
-            if ball2_rect.y > 580:
-                ball2_rect.x = random.randint(0, 800 - 20)
-                ball2_rect.y = 10
-                point -= 1
+            # if ball2_rect.y > 580:
+            #     ball2_rect.x = random.randint(0, 800 - 20)
+            #     ball2_rect.y = 10
+            #     point -= 1
 
             # movement of ball right and left across X-axis
             if goingRight2:
@@ -209,11 +213,13 @@ while True:
                 point += 1
                 goingDown2 = False
 
-            # sends ball up if rect touches very bottom of screen
+            if ball_rect.y > 580:
+                print("Score:", point, " Try again?")
+                sys.exit(0)
             if ball2_rect.y > 580:
-                ball2_rect.x = random.randint(0, 800 - 20)
-                ball2_rect.y = 10
-                point -= 1
+                print("Score:", point, " Try again?")
+                sys.exit(0)
+            # sends ball up if rect touches very bottom of screen
 
             # movement of ball right and left across X-axis
             if goingRight2:
@@ -227,10 +233,10 @@ while True:
                 goingRight2 = True
 
             if ball_rect.y == 580:
-                print("Score:", point)
+                print("Score:", point, " Try again?")
                 sys.exit(0)
             if ball2_rect.y == 580:
-                print("Score:", point)
+                print("Score:", point, " Try again?")
                 sys.exit(0)
 
         #list_of_balls.clear()
@@ -257,10 +263,6 @@ while True:
                 goingDown2 = False
 
                 # sends ball up if rect touches very bottom of screen
-            if ball2_rect.y > 580:
-                ball2_rect.x = random.randint(0, 800 - 20)
-                ball2_rect.y = 10
-                point -= 1
 
                 # movement of ball right and left across X-axis
             if goingRight2:
@@ -284,10 +286,10 @@ while True:
                     increasing = True
 
             if ball_rect.y == 580:
-                print("Score:", point)
+                print("Score:", point, " Try again?")
                 sys.exit(0)
             if ball2_rect.y == 580:
-                print("Score:", point)
+                print("Score:", point, " Try again?")
                 sys.exit(0)
 
     elif 10 <= point <=12:
@@ -314,11 +316,6 @@ while True:
                 point += 1
                 goingDown3 = False
 
-            # sends ball up if rect touches very bottom of screen
-            if ball3_rect.y > 580:
-                ball3_rect.x = random.randint(0, 800 - 20)
-                ball3_rect.y = 10
-                point -= 1
 
             # movement of ball right and left across X-axis
             if goingRight3:
@@ -330,9 +327,11 @@ while True:
                 goingRight3 = False
             if ball3_rect.x < 0:
                 goingRight3 = True
-
-
-
+            #sends ball up if rect touches very bottom of screen
+            if ball3_rect.y > 580:
+                ball3_rect.x = random.randint(0, 800 - 20)
+                ball3_rect.y = 10
+                point -= 1
 
             if increasing:
                 color += 1
@@ -355,13 +354,6 @@ while True:
             if paddle_rect.colliderect(ball2_rect):
                 point += 1
                 goingDown2 = False
-
-                # sends ball up if rect touches very bottom of screen
-            if ball2_rect.y > 580:
-                ball2_rect.x = random.randint(0, 800 - 20)
-                ball2_rect.y = 10
-                point -= 1
-
                 # movement of ball right and left across X-axis
             if goingRight2:
                 ball2_rect = ball2_rect.move(speed, 0)
@@ -373,25 +365,22 @@ while True:
             if ball2_rect.x < 0:
                 goingRight2 = True
 
-            if ball_rect.y == 580:
-                print("Score:", point)
+            if ball_rect.y > 580:
+                print("Score:", point, " Try again?")
                 sys.exit(0)
 
-            if ball2_rect.y == 580:
+            if ball2_rect.y > 580:
                 print("Score:", point)
                 sys.exit(0)
-            if ball3_rect.y == 580:
-                print("Score:", point)
+            if ball3_rect.y > 580:
+                print("Score:", point, " Try again?")
                 sys.exit(0)
+
 
     elif 13 <= point <=14:
             back = fire
             level = 6
             speed = 8
-#so rn, speed2 is assigned to ball three
-# so to fix this, i need to make speed3 = to 4
-# assign ball 3 to speed 3
-# and assign ball 2 to speed 2
             speed2 = 6
             speed3 = 4
 
@@ -410,12 +399,6 @@ while True:
             if paddle_rect.colliderect(ball3_rect):
                 point += 1
                 goingDown3 = False
-
-            # sends ball up if rect touches very bottom of screen
-            if ball3_rect.y > 580:
-                ball3_rect.x = random.randint(0, 800 - 20)
-                ball3_rect.y = 10
-                point -= 1
 
             # movement of ball right and left across X-axis
             if goingRight3:
@@ -449,12 +432,6 @@ while True:
                 point += 1
                 goingDown2 = False
 
-                # sends ball up if rect touches very bottom of screen
-            if ball2_rect.y > 580:
-                ball2_rect.x = random.randint(0, 800 - 20)
-                ball2_rect.y = 10
-                point -= 1
-
                 # movement of ball right and left across X-axis
             if goingRight2:
                 ball2_rect = ball2_rect.move(speed2, 0)
@@ -466,18 +443,19 @@ while True:
             if ball2_rect.x < 0:
                 goingRight2 = True
 
-            if ball_rect.y == 580:
-                print("Score:", point)
+            if ball_rect.y > 580:
+                print("Score:", point, " Try again?")
                 sys.exit(0)
 
-            if ball2_rect.y == 580:
-                print("Score:", point)
+            if ball2_rect.y > 580:
+                print("Score:", point, " Try again?")
                 sys.exit(0)
-            if ball3_rect.y == 580:
-                print("Score:", point)
+            if ball3_rect.y > 580:
+                print("Score:", point, " Try again?")
                 sys.exit(0)
 
-    elif 15 <= point <=17:
+    elif 15 <= point <=16:
+                back = pygame.Surface((0,0))
                 level = 7
                 speed = 8
 
@@ -500,11 +478,6 @@ while True:
                     point += 1
                     goingDown3 = False
 
-                # sends ball up if rect touches very bottom of screen
-                if ball3_rect.y > 580:
-                    ball3_rect.x = random.randint(0, 800 - 20)
-                    ball3_rect.y = 10
-                    point -= 1
 
                 # movement of ball right and left across X-axis
                 if goingRight3:
@@ -538,12 +511,6 @@ while True:
                     point += 1
                     goingDown2 = False
 
-                    # sends ball up if rect touches very bottom of screen
-                if ball2_rect.y > 580:
-                    ball2_rect.x = random.randint(0, 800 - 20)
-                    ball2_rect.y = 10
-                    point -= 1
-
                     # movement of ball right and left across X-axis
                 if goingRight2:
                     ball2_rect = ball2_rect.move(speed2, 0)
@@ -555,20 +522,20 @@ while True:
                 if ball2_rect.x < 0:
                     goingRight2 = True
 
-                if ball_rect.y == 580:
-                    print("Score:", point)
+                if ball_rect.y > 580:
+                    print("Score:", point, " try again?")
                     sys.exit(0)
 
-                if ball2_rect.y == 580:
-                    print("Score:", point)
+                if ball2_rect.y > 580:
+                    print("Score:", point," try again?")
                     sys.exit(0)
-                if ball3_rect.y == 580:
-                    print("Score:", point)
+                if ball3_rect.y > 580:
+                    print("Score:", point, " try again?")
                     sys.exit(0)
 
 
-    elif point == 18:
-                    print("Score:", point)
+    elif point == 17:
+                    print("Congratulations ! You won. Score:", point)
                     sys.exit(0)
 
 
