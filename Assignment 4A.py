@@ -14,6 +14,10 @@ resolution = (800,600)
 
 grass = pygame.image.load("Grassland.jpg").convert()
 grass = pygame.transform.scale(grass, (800,600))
+
+space = pygame.image.load("Space.jpg").convert()
+space = pygame.transform.scale(space, (800,600))
+
 #anotherb background image
 desert = pygame.image.load("desert.jpg").convert()
 desert = pygame.transform.scale(desert, (800,600))
@@ -34,11 +38,6 @@ win_sound.set_volume(0.3)
 pop_sound = pygame.mixer.Sound ("pop-39222.mp3")
 pop_sound.set_volume(0.3)
 
-def generate_random_color():
-    r = random.randint(0,255)
-    g = random.randint(0,255)
-    b = random.randint(0,255)
-    return (r, g, b)
 
 random_color = generate_random_color()
 
@@ -51,7 +50,7 @@ paddle_rect = pygame.Rect(350, 580, 100, 20)
 
 # defining the ball
 ball = pygame.Surface((20, 20))
-ball.fill((random_color))
+ball.fill((0,255,0))
 ball_rect = pygame.Rect(200, 200, 20, 20)
 
 
@@ -211,6 +210,7 @@ while True:
 
             level = 3
             speed = 6
+            back = space
 
             if goingDown2:
                 ball2_rect = ball2_rect.move(0, speed)
@@ -284,11 +284,6 @@ while True:
                 goingDown2 = False
                 pop_sound.play()
 
-                # sends ball up if rect touches very bottom of screen
-            # if ball2_rect.y > 580:
-            #     ball2_rect.x = random.randint(0, 800 - 20)
-            #     ball2_rect.y = 10
-            #     point -= 1
 
                 # movement of ball right and left across X-axis
             if goingRight2:
@@ -302,28 +297,12 @@ while True:
                 goingRight2 = True
 
 
-            # if increasing:
-            #     color += 1
-            # else:
-            #     color -= 1
-            # if color >= 255:
-            #         increasing = False
-            # if color <= 0:
-            #         increasing = True
-
             if ball_rect.y > 580:
                 print("Score:", point, " Try again?")
                 sys.exit(0)
             if ball2_rect.y > 580:
                 print("Score:", point, " Try again?")
                 sys.exit(0)
-
-            # if paddle_rect.colliderect(ball_rect) and point == 7:
-            #     win_sound.play()
-            # if paddle_rect.colliderect(ball2_rect) and point == 7:
-            #     win_sound.play()
-            # if paddle_rect.colliderect(ball3_rect) and point == 7:
-            #     win_sound.play()
 
     elif 10 <= point <=12:
             back = tundra
@@ -349,11 +328,6 @@ while True:
                 point += 1
                 goingDown3 = False
 
-            # sends ball up if rect touches very bottom of screen
-            # if ball3_rect.y > 580:
-            #     ball3_rect.x = random.randint(0, 800 - 20)
-            #     ball3_rect.y = 10
-            #     point -= 1
 
             # movement of ball right and left across X-axis
             if goingRight3:
@@ -394,12 +368,6 @@ while True:
             if ball2_rect.y > 580:
                 print("Score:", point, " Try again?")
                 sys.exit(0)
-
-                # sends ball up if rect touches very bottom of screen
-            # if ball2_rect.y > 580:
-            #     ball2_rect.x = random.randint(0, 800 - 20)
-            #     ball2_rect.y = 10
-            #     point -= 1
 
                 # movement of ball right and left across X-axis
             if goingRight2:
@@ -491,11 +459,6 @@ while True:
                 point += 1
                 goingDown2 = False
 
-                # sends ball up if rect touches very bottom of screen
-            # if ball2_rect.y > 580:
-            #     ball2_rect.x = random.randint(0, 800 - 20)
-            #     ball2_rect.y = 10
-            #     point -= 1
 
                 # movement of ball right and left across X-axis
             if goingRight2:
@@ -550,12 +513,6 @@ while True:
                     point += 1
                     goingDown3 = False
 
-                # sends ball up if rect touches very bottom of screen
-                # if ball3_rect.y > 580:
-                #     ball3_rect.x = random.randint(0, 800 - 20)
-                #     ball3_rect.y = 10
-                #     point -= 1
-
                 # movement of ball right and left across X-axis
                 if goingRight3:
                     ball3_rect = ball3_rect.move(speed3, 0)
@@ -587,12 +544,6 @@ while True:
                 if paddle_rect.colliderect(ball2_rect):
                     point += 1
                     goingDown2 = False
-
-                    # sends ball up if rect touches very bottom of screen
-                # if ball2_rect.y > 580:
-                #     ball2_rect.x = random.randint(0, 800 - 20)
-                #     ball2_rect.y = 10
-                #     point
 
                     # movement of ball right and left across X-axis
                 if goingRight2:
@@ -641,6 +592,3 @@ while True:
     clock.tick(60)
 
     #make the paddle smaller as levels progress
-    # intergrate sounds
-    # load images onto rects
-    # only one of the balls - makes the game stop
