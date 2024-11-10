@@ -37,9 +37,8 @@ win_sound = pygame.mixer.Sound("roblox-victory-sound-made-with-Voicemod.mp3")
 win_sound.set_volume(0.3)
 pop_sound = pygame.mixer.Sound ("pop-39222.mp3")
 pop_sound.set_volume(0.3)
-
-
-random_color = generate_random_color()
+close_sound = pygame.mixer.Sound ("game_close.mp3")
+close_sound.set_volume(0.3)
 
 
 # defining the paddle
@@ -105,8 +104,10 @@ while True:
     keys = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == QUIT:
-            print("Score:", point)
-            sys.exit(0)
+            close_sound.play()
+            if not pygame.mixer.get_busy():
+                print("Score:", point)
+                sys.exit(0)
 #movement of paddle
     if keys[pygame.K_LEFT] and paddle_rect.left > 0:
         paddle_rect.x -= speedB
@@ -154,11 +155,14 @@ while True:
 
     if ball_rect.y == 580:
         print("Score:", point, " Try again?")
+        close_sound.play()
         sys.exit(0)
     if ball2_rect.y == 580:
+        close_sound.play()
         print("Score:", point, " Try again?")
         sys.exit(0)
     if ball3_rect.y == 580:
+        close_sound.play()
         print("Score:", point, " Try again?")
         sys.exit(0)
 
