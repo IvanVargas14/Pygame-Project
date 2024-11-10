@@ -2,7 +2,7 @@
 #Section: BD
 #Term: Fall 2024
 #Instructor: Mamo
-#Name: Jakob Shelton, Ivan, Ramone, Kellen
+#Name: Jakob Shelton, Ivan Vargas, Ramone Peeples , Kellen Johnson
 #Pygame Project
 
 import pygame, sys, random
@@ -132,10 +132,13 @@ while True:
         pop_sound.play()
 
 # sends ball up if rect touches very bottom of screen
+#     if ball_rect.y > 580:
+#         ball_rect.x = random.randint(0, 800 - 20)
+#         ball_rect.y = 10
+#         point -= 1
     if ball_rect.y > 580:
-        ball_rect.x = random.randint(0, 800 - 20)
-        ball_rect.y = 10
-        point -= 1
+        print("Score:", point, " Try again?")
+        sys.exit(0)
 
 
 
@@ -192,10 +195,13 @@ while True:
                 pop_sound.play()
 
             # sends ball up if rect touches very bottom of screen
+            # if ball2_rect.y > 580:
+            #     ball2_rect.x = random.randint(0, 800 - 20)
+            #     ball2_rect.y = 10
+            #     point -= 1
             if ball2_rect.y > 580:
-                ball2_rect.x = random.randint(0, 800 - 20)
-                ball2_rect.y = 10
-                point -= 1
+                print("Score:", point, " Try again?")
+                sys.exit(0)
 
             # movement of ball right and left across X-axis
             if goingRight2:
@@ -576,7 +582,7 @@ while True:
     elif point == 18:
         # if paddle_rect.colliderect(ball3_rect):
         #     score_sound.play()
-        # 
+        #
         #
         # if paddle_rect.colliderect(ball2_rect):
         #     score_sound.play()
