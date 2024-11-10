@@ -37,8 +37,8 @@ win_sound = pygame.mixer.Sound("roblox-victory-sound-made-with-Voicemod.mp3")
 win_sound.set_volume(0.3)
 pop_sound = pygame.mixer.Sound ("pop-39222.mp3")
 pop_sound.set_volume(0.3)
-close_sound = pygame.mixer.Sound ("game_close.mp3")
-close_sound.set_volume(0.3)
+score_sound = pygame.mixer.Sound ("score_.wav")
+score_sound.set_volume(0.3)
 
 
 # defining the paddle
@@ -104,8 +104,10 @@ while True:
     keys = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == QUIT:
-            close_sound.play()
-            if not pygame.mixer.get_busy():
+            print("Score:", point)
+            sys.exit(0)
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
                 print("Score:", point)
                 sys.exit(0)
 #movement of paddle
@@ -155,14 +157,14 @@ while True:
 
     if ball_rect.y == 580:
         print("Score:", point, " Try again?")
-        close_sound.play()
+
         sys.exit(0)
     if ball2_rect.y == 580:
-        close_sound.play()
+
         print("Score:", point, " Try again?")
         sys.exit(0)
     if ball3_rect.y == 580:
-        close_sound.play()
+
         print("Score:", point, " Try again?")
         sys.exit(0)
 
@@ -572,9 +574,24 @@ while True:
                     sys.exit(0)
 
     elif point == 18:
-                    win_sound.play()
-                    print("Congratulations ! You won. Score:", point)
-                    sys.exit(0)
+        # if paddle_rect.colliderect(ball3_rect):
+        #     score_sound.play()
+        # 
+        #
+        # if paddle_rect.colliderect(ball2_rect):
+        #     score_sound.play()
+        #
+        #
+        # if paddle_rect.colliderect(ball_rect):
+        #     score_sound.play()
+        #
+        # if not pygame.mixer.get_busy():
+            print("Congratulations ! You won. Score:", point)
+            sys.exit(0)
+
+                    # win_sound.play()
+                    # print("Congratulations ! You won. Score:", point)
+                    # sys.exit(0)
 
 
     # Render the score and level as text
@@ -594,34 +611,4 @@ while True:
     screen.blit(level_text, (10,50))#Display level below the score
     pygame.display.flip()
     clock.tick(60)
-    import pygame
-import sys
 
-# Initialize Pygame
-pygame.init()
-
-# Set up the display
-screen = pygame.display.set_mode((800, 600))  # Width, Height
-pygame.display.set_caption("Exit with Escape Key")
-
-# Main game loop
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                running = False
-
-    # Fill the screen with a color (optional)
-    screen.fill((30, 30, 30))  # Dark gray background
-
-    # Update the display
-    pygame.display.flip()
-
-# Quit Pygame
-pygame.quit()
-sys.exit()
-
-    #make the paddle smaller as levels progress
